@@ -21,7 +21,7 @@
 # TODO (begin) #
 #######################
 # Change IDENTIFIER to match the project identifier given in the project spec.
-IDENTIFIER = 40FB54C86566B9DDEAB902CC80E8CE85C1C62AAD
+IDENTIFIER = 5949F553E20B650AB0FB2266D3C0822B13D248B0
 
 # Change EXECUTABLE to match the command name given in the project spec.
 EXECUTABLE  = poke
