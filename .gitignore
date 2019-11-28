@@ -1,6 +1,8 @@
+make
 **.swp
 .DS_Store
 poke
 **.a
 **.d
 **.o
+**.tar.gz
