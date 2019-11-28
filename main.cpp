@@ -6,7 +6,7 @@
 #include <iostream>
 #include <getopt.h>
 #include <cassert>
-#include <string>
+#include <cstring>
 #include <iomanip>
 
 using std::cout;
@@ -14,7 +14,6 @@ using std::cerr;
 using std::cin;
 using std::cerr;
 using std::endl;
-using std::strcmp;
 
 const bool BORDER_ON = true;
 //const bool BORDER_OFF = false;
