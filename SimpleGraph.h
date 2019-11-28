@@ -19,10 +19,11 @@ protected:
 		size_t parent_index;
 		bool deleted;
 		VertType get_vert_type() const;
-		bool operator< (const struct Vertex &other);
+		bool operator< (const struct Vertex &other) const;
 	}; // Vertex
 
 	std::vector<Vertex> vertices;
+	const size_t STRING_PRINT_LIMIT;
 	const bool border;
 
 	double dist(const Vertex &v_1, const Vertex &v_2) const;

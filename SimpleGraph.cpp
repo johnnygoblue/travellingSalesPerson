@@ -16,7 +16,9 @@ SimpleGraph::VertType SimpleGraph::Vertex::get_vert_type() const {
 	return SimpleGraph::VertType::COAST;
 }
 
-SimpleGraph::SimpleGraph(istream &is, bool border_in) : border(border_in) {
+bool SimpleGraph::Vertex::operator< (const SimpleGraph::Vertex &other) const { return running_dist < other.running_dist; }
+
+SimpleGraph::SimpleGraph(istream &is, bool border_in) : STRING_PRINT_LIMIT(2810), border(border_in) {
 	size_t size_in;
 	is >> size_in;
 	vertices.reserve(size_in);
@@ -35,6 +37,10 @@ SimpleGraph::SimpleGraph(istream &is, bool border_in) : border(border_in) {
 size_t SimpleGraph::total_size() const { return vertices.size(); }
 
 bool SimpleGraph::is_valid_vertex(const Vertex &v) { return !v.deleted; }
+
+size_t SimpleGraph::working_size() const {
+	return (unsigned long)count_if(vertices.begin(), vertices.end(), is_valid_vertex);
+}
 
 double SimpleGraph::dist(const Vertex &v_1, const Vertex &v_2) const {
 

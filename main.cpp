@@ -1,14 +1,23 @@
 // Project Identifier: 5949F553E20B650AB0FB2266D3C0822B13D248B0
+
+#include "SimpleGraph.h"
+#include "MST.h"
+
+#include <iostream>
 #include <getopt.h>
 #include <cassert>
 #include <string>
 #include <iomanip>
-#include <iostream>
 
 using std::cout;
 using std::cerr;
+using std::cin;
+using std::cerr;
 using std::endl;
+using std::strcmp;
 
+const bool BORDER_ON = true;
+//const bool BORDER_OFF = false;
 
 enum class Mode { MST,
 				FASTTSP,
@@ -58,21 +67,26 @@ int main(int argc, char **argv) {
 	cout << std::fixed;
 
 	switch (getMode(argc, argv)) {
-		case Mode::MST:
-			cout << "MST mode on!\n";
+		case Mode::MST: {
+			MST g (cin, BORDER_ON);
+			g.gen_mst();
+			g.print_mst(cout);
 			break;
-		case Mode::FASTTSP:
-			cout << "FASTTSP mode on!\n";
+						}
+		case Mode::FASTTSP: {
 			break;
-		case Mode::OPTTSP:
-			cout << "OPTTSP mode on!\n";
+							}
+		case Mode::OPTTSP: {
 			break;
-		case Mode::ERR:
+						   }
+		case Mode::ERR: {
 			cerr << "ERR mode caught" << endl;
 			break;
-		default:
+						}
+		default: {
 			cerr << "Program failed to execute due to invalid mode received" << endl;
 			break;
+				 }
 	} // switch
 	return 0;
 }
