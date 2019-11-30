@@ -8,7 +8,6 @@
 class SimpleGraph {
 public:
 	SimpleGraph(std::istream &is, bool border_in);
-	size_t total_size() const;
 
 protected:
 	enum class VertType {LAND, WATER, COAST};

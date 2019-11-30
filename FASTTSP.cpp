@@ -8,21 +8,6 @@ using namespace std;
 
 FASTTSP::FASTTSP(istream &is, bool border) : SimpleGraph(is, border) { }
 
-void FASTTSP::nearest_neighbor() {
-	tour.push_back(find_if(vertices.begin(), vertices.end(), is_valid_vertex));
-	tour.back()->deleted = true;
-
-	while (tour.size() < vertices.size()) {
-		vector<Vertex>::iterator closest_vertex = find_if(vertices.begin(), vertices.end(), is_valid_vertex);
-		std::pair<vector<Vertex>::iterator, vector<Vertex>::iterator> shortest_edge = { tour.back(), closest_vertex };
-		for (auto it = closest_vertex; it != vertices.end(); ++it) {
-			if (!it->deleted && update_min_edge(tour.back(), it, shortest_edge)) closest_vertex = it;
-		}
-		tour.push_back(closest_vertex);
-		closest_vertex->deleted = true;
-	}
-}
-
 void FASTTSP::arbitrary_insertion(const vector<vector<double> > &metric) {
 	tour.clear();
 	assert(!vertices.empty());
@@ -70,19 +55,6 @@ void FASTTSP::arbitrary_insertion(const vector<vector<double> > &metric) {
 		next_vertex->deleted = true;
 	}
 	tour.pop_back();
-}
-
-void FASTTSP::two_opt() {
-	unsigned i = 0, j = 1;
-	const size_t n = tour.size();
-	do {
-		const double current_dist = tour_distance(n);
-		swap(tour[i], tour[j]);
-		const double potential_dist = tour_distance(n);
-		if (potential_dist > current_dist) {
-			swap(tour[i], tour[j]);
-		}
-	} while (next_combination(i, j));
 }
 
 vector<SimpleGraph::Vertex>::iterator FASTTSP::closest_valid_vertex

@@ -34,8 +34,6 @@ SimpleGraph::SimpleGraph(istream &is, bool border_in) : STRING_PRINT_LIMIT(2810)
 	);
 }
 
-size_t SimpleGraph::total_size() const { return vertices.size(); }
-
 bool SimpleGraph::is_valid_vertex(const Vertex &v) { return !v.deleted; }
 
 size_t SimpleGraph::working_size() const {

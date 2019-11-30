@@ -13,10 +13,6 @@ public:
 	void arbitrary_insertion(const std::vector<std::vector<double> > &metric =
 		std::vector<std::vector<double> > () );
 
-	void nearest_neighbor();
-
-	void two_opt();
-
 	void print_tour(std::ostream &os) const;
 
 protected:
