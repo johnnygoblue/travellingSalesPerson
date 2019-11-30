@@ -2,6 +2,7 @@
 
 #include "SimpleGraph.h"
 #include "MST.h"
+#include "FASTTSP.h"
 
 #include <iostream>
 #include <getopt.h>
@@ -16,7 +17,7 @@ using std::cerr;
 using std::endl;
 
 const bool BORDER_ON = true;
-//const bool BORDER_OFF = false;
+const bool BORDER_OFF = false;
 
 enum class Mode { MST,
 				FASTTSP,
@@ -73,6 +74,9 @@ int main(int argc, char **argv) {
 			break;
 						}
 		case Mode::FASTTSP: {
+			FASTTSP g (cin, BORDER_OFF);
+			g.arbitrary_insertion();
+			g.print_tour(cout);
 			break;
 							}
 		case Mode::OPTTSP: {
