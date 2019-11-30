@@ -3,6 +3,7 @@
 #include "SimpleGraph.h"
 #include "MST.h"
 #include "FASTTSP.h"
+#include "OPTTSP.h"
 
 #include <iostream>
 #include <getopt.h>
@@ -80,6 +81,9 @@ int main(int argc, char **argv) {
 			break;
 							}
 		case Mode::OPTTSP: {
+			OPTTSP g (cin, BORDER_OFF);
+			g.compute_tour();
+			g.print_tour(cout);
 			break;
 						   }
 		case Mode::ERR: {
