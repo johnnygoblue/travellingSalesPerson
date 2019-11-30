@@ -23,8 +23,6 @@ protected:
 		std::vector<std::vector<double> > () ) const;
 
 	std::vector<Vertex>::iterator closest_valid_vertex(std::vector<Vertex>::iterator &current);
-
-	bool next_combination(unsigned &i, unsigned &j) const;
 };
 
 #endif

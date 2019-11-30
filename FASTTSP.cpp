@@ -106,18 +106,3 @@ double FASTTSP::tour_distance(size_t num_elements, const vector<vector<double> >
 	}
 	return distance;
 }
-
-bool FASTTSP::next_combination(unsigned &i, unsigned &j) const {
-	const size_t n = tour.size();
-	if (j < n - 1) {
-		++j;
-		return true;
-	}
-	if (i < n - 2) {
-		++i;
-		j = i + 1;
-		return true;
-	}
-	// Else, we've reached the end.
-	return false;
-}

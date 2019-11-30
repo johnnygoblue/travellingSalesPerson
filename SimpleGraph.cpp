@@ -64,17 +64,3 @@ double SimpleGraph::dist(const Vertex &v_1, const Vertex &v_2) const {
 void SimpleGraph::reset_vertices() {
 	for (auto &v : vertices) v.deleted = false;
 }
-
-bool SimpleGraph::update_min_edge(const vector<Vertex>::iterator &v_1, const vector<Vertex>::iterator &v_2,
-	pair<vector<Vertex>::iterator, vector<Vertex>::iterator> &current_min) const {
-
-	const double potential_dist = dist(*v_1, *v_2);;
-	const double old_dist = dist(*current_min.first, *current_min.second);
-
-	// Replace current_min if potential distance < old distance.
-	if (potential_dist < old_dist) {
-		current_min = { v_1, v_2 };
-		return true;
-	}
-	return false;
-}

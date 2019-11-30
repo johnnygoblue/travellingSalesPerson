@@ -29,10 +29,6 @@ protected:
 	size_t working_size() const;
 	void reset_vertices();
 	static bool is_valid_vertex(const Vertex &v);
-
-	bool update_min_edge(const std::vector<Vertex>::iterator &v_1, const std::vector<Vertex>::iterator &v_2,
-		std::pair<std::vector<Vertex>::iterator, std::vector<Vertex>::iterator> &current_min) const;
-
 }; // SimpleGraph
 
 #endif
