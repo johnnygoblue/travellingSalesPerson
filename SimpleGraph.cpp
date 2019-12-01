@@ -27,8 +27,8 @@ SimpleGraph::SimpleGraph(istream &is, bool border_in) : STRING_PRINT_LIMIT(2810)
 	while (is >> x_in >> y_in) vertices.push_back(
 		{
 			numeric_limits<double>::infinity(),
-			x_in, y_in,
 			0,
+			x_in, y_in,
 			false,
 		}
 	);

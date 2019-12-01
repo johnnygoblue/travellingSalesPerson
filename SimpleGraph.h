@@ -14,8 +14,8 @@ protected:
 
 	struct Vertex {
 		double running_dist;
-		int x, y;
 		size_t parent_index;
+		int x, y;
 		bool deleted;
 		VertType get_vert_type() const;
 		bool operator< (const struct Vertex &other) const;
