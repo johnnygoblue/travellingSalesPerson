@@ -18,7 +18,7 @@ SimpleGraph::VertType SimpleGraph::Vertex::get_vert_type() const {
 
 bool SimpleGraph::Vertex::operator< (const SimpleGraph::Vertex &other) const { return running_dist < other.running_dist; }
 
-SimpleGraph::SimpleGraph(istream &is, bool border_in) : STRING_PRINT_LIMIT(2810), border(border_in) {
+SimpleGraph::SimpleGraph(istream &is, bool border_in) : STRING_PRINT_LIMIT(4096), border(border_in) {
 	size_t size_in;
 	is >> size_in;
 	vertices.reserve(size_in);
