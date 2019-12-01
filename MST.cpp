@@ -52,7 +52,7 @@ void MST::gen_mst(const vector<vector<double> > &metric) {
 					metric[(unsigned long)(innies.back() - vertices.begin())][(unsigned long)(it - vertices.begin())];
 				if (candidate_dist < it->running_dist) {
 					it->running_dist = candidate_dist;
-					it->parent_index = (unsigned long)(innies.back() - vertices.begin());
+					it->parent_index = (unsigned)(innies.back() - vertices.begin());
 				}
 			}
 		}
