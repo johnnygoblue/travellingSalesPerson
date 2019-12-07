@@ -72,8 +72,10 @@ bool OPTTSP::promising(size_t perm_length) {
 
 	const double current_tsp_lowerbound = current_open_tour_dist + subgraph_mst_dist + dist_from_front + dist_from_back;
 
-	if (current_tsp_lowerbound >= tsp_upperbound) return false;
-	else return true;
+	if (current_tsp_lowerbound >= tsp_upperbound) {
+		return false;
+	}
+	return true;
 }
 
 vector<SimpleGraph::Vertex>::iterator OPTTSP::closest_mst_vertex

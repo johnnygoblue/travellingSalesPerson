@@ -15,7 +15,8 @@ void FASTTSP::arbitrary_insertion(const vector<vector<double> > &metric) {
 	tour.reserve(n + 1);
 
 	if (vertices.size() <= 2) {
-		for (auto it = vertices.begin(); it != vertices.end(); ++it) tour.push_back(it);
+		for (auto it = vertices.begin(); it != vertices.end(); ++it)
+			tour.push_back(it);
 		return;
 	}
 

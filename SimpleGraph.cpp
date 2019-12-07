@@ -44,7 +44,6 @@ double SimpleGraph::dist(const Vertex &v_1, const Vertex &v_2) const {
 
 	if (&v_1 == &v_2) return 0;
 	/*
-	Here's a neat trick:
 		LAND + LAND = 0
 		LAND + WATER = 1
 		LAND + COAST = 2

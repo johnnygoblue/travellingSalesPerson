@@ -16,25 +16,25 @@ void MST::gen_mst(const vector<vector<double> > &metric) {
 	mst.reserve(graph_size - 1);
 
 	if (border) {
-		// Check whether or not it is possible to generate an mst given the subgraph.
+		/* check if we can generate a MST given the subgraph */
 		bool WATER_present = false, LAND_present = false, COAST_present = false;
 		for (const auto &it : vertices) {
-			// Once I find a border, it's possible to make an MST.
-			if (COAST_present) break;
-			switch (it.get_vert_type()) {
-				case SimpleGraph::VertType::LAND:
-					LAND_present = true;
-					break;
-				case SimpleGraph::VertType::WATER:
-					WATER_present = true;
-					break;
-				case SimpleGraph::VertType::COAST:
-					COAST_present = true;
-					break;
+			if (COAST_present)
+				break;
+
+			SimpleGraph::VertType type = it.get_vert_type();
+			if (type == SimpleGraph::VertType::LAND) {
+				LAND_present = true;
+			} else if (type == SimpleGraph::VertType::WATER) {
+				WATER_present = true;
+			} else if (type == SimpleGraph::VertType::COAST) {
+				COAST_present = true;
+			} else {
+				cerr << "Invalid type '" << int(type) << "'" << endl;
 			}
 		}
 		if (LAND_present && WATER_present && !COAST_present) {
-			cerr << "Cannot construct MST" << endl;
+			cerr << "Unable to construct MST, need coast line!" << endl;
 			exit(1);
 		}
 	}
@@ -64,8 +64,11 @@ void MST::gen_mst(const vector<vector<double> > &metric) {
 		innies.push_back(closest);
 
 		const size_t closest_index = (unsigned long)(closest - vertices.begin());
-		parent_of_closest < closest_index ? mst.push_back( {vertices.begin() + (unsigned)parent_of_closest, closest} ) :
-			mst.push_back( {closest, vertices.begin() + (unsigned)parent_of_closest } );
+		if (parent_of_closest < closest_index) {
+			mst.push_back({vertices.begin() + unsigned(parent_of_closest), closest});
+		} else {
+			mst.push_back({closest, vertices.begin() + (unsigned)parent_of_closest});
+		}
 	}
 
 	assert(innies.size() == graph_size);
@@ -90,7 +93,8 @@ void MST::print_mst(std::ostream &os, const std::vector<std::vector<double> > &m
 double MST::mst_weight(const vector<std::vector<double> > &metric) const {
 	double weight = 0;
 	if (metric.empty()) {
-		for (const auto &p : mst) weight += dist(*p.first, *p.second);
+		for (const auto &p : mst)
+			weight += dist(*p.first, *p.second);
 	} else {
 		for (const auto &p : mst)
 			weight += metric[(unsigned long)(p.first - vertices.begin())][(unsigned long)(p.second - vertices.begin())];

@@ -67,33 +67,27 @@ int main(int argc, char **argv) {
 	cout << std::setprecision(2);
 	cout << std::fixed;
 
-	switch (getMode(argc, argv)) {
-		case Mode::MST: {
-			MST g (cin, BORDER_ON);
-			g.gen_mst();
-			g.print_mst(cout);
-			break;
-						}
-		case Mode::FASTTSP: {
-			FASTTSP g (cin, BORDER_OFF);
-			g.arbitrary_insertion();
-			g.print_tour(cout);
-			break;
-							}
-		case Mode::OPTTSP: {
-			OPTTSP g (cin, BORDER_OFF);
-			g.compute_tour();
-			g.print_tour(cout);
-			break;
-						   }
-		case Mode::ERR: {
-			cerr << "ERR mode caught" << endl;
-			break;
-						}
-		default: {
-			cerr << "Program failed to execute due to invalid mode received" << endl;
-			break;
-				 }
-	} // switch
+	Mode m = getMode(argc, argv);
+	if (m == Mode::MST) {
+		MST g (cin, BORDER_ON);
+		g.gen_mst();
+		g.print_mst(cout);
+	}
+	else if (m == Mode::FASTTSP) {
+		FASTTSP g (cin, BORDER_OFF);
+		g.arbitrary_insertion();
+		g.print_tour(cout);
+	}
+	else if (m == Mode::OPTTSP) {
+		OPTTSP g (cin, BORDER_OFF);
+		g.compute_tour();
+		g.print_tour(cout);
+	}
+	else if (m ==  Mode::ERR) {
+		cerr << "Error mode caught!" << endl;
+	}
+	else {
+		cerr << "Program failed to execute due to invalid mode caught!" << endl;
+	}
 	return 0;
 }
