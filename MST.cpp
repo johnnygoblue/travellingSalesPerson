@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <limits>
 #include <cmath>
-#include <cassert>
+//#include <cassert>
 #include <string>
 using namespace std;
 
@@ -71,7 +71,7 @@ void MST::gen_mst(const vector<vector<double> > &metric) {
 		}
 	}
 
-	assert(innies.size() == graph_size);
+	//assert(innies.size() == graph_size);
 }
 
 void MST::print_mst(std::ostream &os, const std::vector<std::vector<double> > &metric) const {

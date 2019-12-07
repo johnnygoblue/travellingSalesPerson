@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <limits>
 #include <cmath>
-#include <cassert>
+//#include <cassert>
 #include <list>
 
 #include "SimpleGraph.h"

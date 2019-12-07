@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include <getopt.h>
-#include <cassert>
+//#include <cassert>
 #include <cstring>
 #include <iomanip>
 

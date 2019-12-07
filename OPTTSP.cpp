@@ -2,7 +2,7 @@
 
 #include "OPTTSP.h"
 
-#include <cassert>
+//#include <cassert>
 #include <algorithm>
 using namespace std;
 
@@ -57,10 +57,14 @@ bool OPTTSP::promising(size_t perm_length) {
 	const double current_open_tour_dist = tour_distance(perm_length, metric)
 		- metric[unsigned(tour[0] - vertices.begin())][unsigned(tour[perm_length - 1] - vertices.begin())];
 
-	for (size_t i = perm_length; i < tour.size(); ++i) tour[i]->deleted = false;
+	size_t i = perm_length;
+	while (i < tour.size()) {
+		tour[i]->deleted = false;
+		++i;
+	}
 
 	gen_mst(metric);
-	assert(mst.size() == tour.size() - perm_length - 1);
+	//assert(mst.size() == tour.size() - perm_length - 1);
 
 	const double subgraph_mst_dist = mst_weight(metric);
 
@@ -82,8 +86,8 @@ vector<SimpleGraph::Vertex>::iterator OPTTSP::closest_mst_vertex
 	(vector<Vertex>::iterator &current, size_t perm_length) {
 
 	const size_t n = tour.size();
-	assert(1 <= perm_length);
-	assert(perm_length < n);
+	//assert(1 <= perm_length);
+	//assert(perm_length < n);
 
 	vector<Vertex>::iterator closest_vertex = tour[perm_length];
 	double min_dist = metric[unsigned(tour[perm_length] - vertices.begin())][unsigned(current - vertices.begin())];
