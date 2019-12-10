@@ -11,8 +11,9 @@ OPTTSP::OPTTSP(istream &is, bool border) : SimpleGraph(is, border), MST(is, bord
 
 	const size_t n = vertices.size();
 	metric.resize(n);
-	for (size_t i = 0; i < n; ++i) metric[i].resize(n);
-
+	for (size_t i = 0; i < n; ++i) {
+		metric[i].resize(n);
+	}
 	for (size_t i = 0; i < n; ++i) {
 		metric[i][i] = 0;
 		for (size_t j = i + 1; j < n; ++j) {
@@ -64,7 +65,6 @@ bool OPTTSP::promising(size_t perm_length) {
 	}
 
 	gen_mst(metric);
-	//assert(mst.size() == tour.size() - perm_length - 1);
 
 	const double subgraph_mst_dist = mst_weight(metric);
 

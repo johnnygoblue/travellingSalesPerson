@@ -19,9 +19,9 @@ void MST::gen_mst(const vector<vector<double> > &metric) {
 		/* check if we can generate a MST given the subgraph */
 		bool WATER_present = false, LAND_present = false, COAST_present = false;
 		for (const auto &it : vertices) {
-			if (COAST_present)
+			if (COAST_present) {
 				break;
-
+			}
 			SimpleGraph::VertType type = it.get_vert_type();
 			if (type == SimpleGraph::VertType::LAND) {
 				LAND_present = true;
@@ -70,8 +70,6 @@ void MST::gen_mst(const vector<vector<double> > &metric) {
 			mst.push_back({closest, vertices.begin() + (unsigned)parent_of_closest});
 		}
 	}
-
-	//assert(innies.size() == graph_size);
 }
 
 void MST::print_mst(std::ostream &os, const std::vector<std::vector<double> > &metric) const {
