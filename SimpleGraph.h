@@ -29,7 +29,7 @@ protected:
 	}; // Vertex
 
 	std::vector<Vertex> vertices;
-	const size_t STRING_PRINT_LIMIT;
+	const size_t STRING_BUF_LIMIT;
 	const bool border;
 
 	double dist(const Vertex &v_1, const Vertex &v_2) const;

@@ -79,7 +79,7 @@ void MST::print_mst(std::ostream &os, const std::vector<std::vector<double> > &m
 	for (const auto &p : mst) {
 		s += to_string(p.first - vertices.begin()) + ' '
 			+ to_string(p.second - vertices.begin()) + '\n';
-		if (s.length() > STRING_PRINT_LIMIT) {
+		if (s.length() > STRING_BUF_LIMIT) {
 			os << s;
 			s.clear();
 		}

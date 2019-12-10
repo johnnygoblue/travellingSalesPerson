@@ -82,7 +82,7 @@ void FASTTSP::print_tour(ostream &os) const {
 	string s;
 	for (const auto &it : tour) {
 		s += to_string(it - vertices.begin()) + ' ';
-		if (s.size() > STRING_PRINT_LIMIT) {
+		if (s.size() > STRING_BUF_LIMIT) {
 			os << s;
 			s.clear();
 		}
