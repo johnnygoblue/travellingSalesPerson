@@ -13,6 +13,7 @@
 class MST : virtual public SimpleGraph {
 public:
 	MST(std::istream &is, bool border_in);
+	void check_border();
 	void gen_mst(const std::vector<std::vector<double> > &metric =
 	std::vector<std::vector<double> > () );
 	void print_mst(std::ostream &os, const std::vector<std::vector<double> > &metric =

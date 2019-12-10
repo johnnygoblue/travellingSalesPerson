@@ -9,11 +9,7 @@ using namespace std;
 
 MST::MST(istream &is, bool border_in) : SimpleGraph(is, border_in) { }
 
-void MST::gen_mst(const vector<vector<double> > &metric) {
-	mst.clear();
-	const size_t graph_size = working_size();
-	mst.reserve(graph_size - 1);
-
+void MST::check_border() {
 	if (border) {
 		/* check if we can generate a MST given the subgraph */
 		bool WATER_present = false, LAND_present = false, COAST_present = false;
@@ -32,12 +28,20 @@ void MST::gen_mst(const vector<vector<double> > &metric) {
 				cerr << "Invalid type '" << int(type) << "'" << endl;
 			}
 		}
-		if (LAND_present && WATER_present && !COAST_present) {
+		if (!COAST_present && LAND_present && WATER_present) {
 			cerr << "Unable to construct MST, need coast line!" << endl;
 			exit(1);
 		}
 	}
+	return;
+}
 
+void MST::gen_mst(const vector<vector<double> > &metric) {
+	mst.clear();
+	const size_t graph_size = working_size();
+	mst.reserve(graph_size - 1);
+
+	check_border();
 	vector<vector<Vertex>::iterator> innies;
 	innies.reserve(graph_size);
 
@@ -45,15 +49,21 @@ void MST::gen_mst(const vector<vector<double> > &metric) {
 	innies.back()->deleted = true;
 
 	while (mst.size() < graph_size - 1) {
-		for (auto it = innies.front(); it != vertices.end(); ++it) {
+		auto it = innies.front();
+		double candidate_dist = 0.0;
+		while (it != vertices.end()) {
 			if (is_valid_vertex(*it)) {
-				const double candidate_dist = metric.empty() ? dist(*innies.back(), *it) :
-					metric[(unsigned long)(innies.back() - vertices.begin())][(unsigned long)(it - vertices.begin())];
+				if (!metric.empty()) {
+					candidate_dist = metric[(unsigned long)(innies.back() - vertices.begin())][(unsigned long)(it - vertices.begin())];
+				} else {
+					candidate_dist = dist(*innies.back(), *it);
+				}
 				if (candidate_dist < it->running_dist) {
 					it->running_dist = candidate_dist;
 					it->parent_index = (unsigned)(innies.back() - vertices.begin());
 				}
 			}
+			++it;
 		}
 
 		auto closest = min_element(vertices.begin(), vertices.end());
@@ -89,12 +99,17 @@ void MST::print_mst(std::ostream &os, const std::vector<std::vector<double> > &m
 
 double MST::mst_weight(const vector<std::vector<double> > &metric) const {
 	double weight = 0;
-	if (metric.empty()) {
-		for (const auto &p : mst)
-			weight += dist(*p.first, *p.second);
+	auto p = mst.begin();
+	if (!metric.empty()) {
+		while (p != mst.end()) {
+			weight += metric[(unsigned long)(p->first - vertices.begin())][(unsigned long)(p->second - vertices.begin())];
+			++p;
+		}
 	} else {
-		for (const auto &p : mst)
-			weight += metric[(unsigned long)(p.first - vertices.begin())][(unsigned long)(p.second - vertices.begin())];
+		while (p != mst.end()) {
+			weight += dist(*p->first, *p->second);
+			++p;
+		}
 	}
 	return weight;
 }
