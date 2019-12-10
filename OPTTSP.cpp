@@ -8,17 +8,23 @@ using namespace std;
 OPTTSP::OPTTSP(istream &is, bool border) : SimpleGraph(is, border), MST(is, border),
 	FASTTSP(is, border), tsp_upperbound(numeric_limits<double>::infinity()) {
 
-	const size_t n = vertices.size();
-	metric.resize(n);
-	for (size_t i = 0; i < n; ++i) {
-		metric[i].resize(n);
+	const size_t num_vertices = vertices.size();
+	size_t i = 0;
+	metric.resize(num_vertices);
+	while (i < num_vertices) {
+		metric[i].resize(num_vertices);
+		++i;
 	}
-	for (size_t i = 0; i < n; ++i) {
+	i = 0;
+	while (i < num_vertices) {
+		size_t j = 0;
 		metric[i][i] = 0;
-		for (size_t j = i + 1; j < n; ++j) {
+		while (j < num_vertices) {
 			metric[i][j] = dist(vertices[i], vertices[j]);
 			metric[j][i] = metric[i][j];
+			++j;
 		}
+		++i;
 	}
 }
 
@@ -75,27 +81,25 @@ bool OPTTSP::promising(size_t perm_length) {
 
 	const double current_tsp_lowerbound = current_open_tour_dist + subgraph_mst_dist + dist_from_front + dist_from_back;
 
-	if (current_tsp_lowerbound >= tsp_upperbound) {
-		return false;
+	if (current_tsp_lowerbound < tsp_upperbound) {
+		return true;
 	}
-	return true;
+	return false;
 }
 
 vector<SimpleGraph::Vertex>::iterator OPTTSP::closest_mst_vertex
 	(vector<Vertex>::iterator &current, size_t perm_length) {
-
-	const size_t n = tour.size();
-
 	vector<Vertex>::iterator closest_vertex = tour[perm_length];
 	double min_dist = metric[unsigned(tour[perm_length] - vertices.begin())][unsigned(current - vertices.begin())];
+	size_t i = perm_length + 1;
 
-	for (size_t i = perm_length + 1; i < n; ++i) {
+	while (i < tour.size()) {
 		double possible_dist = metric[unsigned(tour[i] - vertices.begin())][unsigned(current - vertices.begin())];
 		if (possible_dist < min_dist) {
 			min_dist = possible_dist;
 			closest_vertex = tour[i];
 		}
+		++i;
 	}
-
 	return closest_vertex;
 }
