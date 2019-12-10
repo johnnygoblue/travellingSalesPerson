@@ -19,18 +19,14 @@ bool SimpleGraph::Vertex::operator< (const SimpleGraph::Vertex &other) const { r
 
 SimpleGraph::SimpleGraph(istream &is, bool border_in) : STRING_BUF_LIMIT(4096), border(border_in) {
 	size_t size_in;
+	int x_in, y_in;
+
 	is >> size_in;
 	vertices.reserve(size_in);
 
-	int x_in, y_in;
-	while (is >> x_in >> y_in) vertices.push_back(
-		{
-			numeric_limits<double>::infinity(),
-			0,
-			x_in, y_in,
-			false,
-		}
-	);
+	while (is >> x_in >> y_in) {
+		vertices.push_back( { numeric_limits<double>::infinity(), 0, x_in, y_in, false,} );
+	}
 }
 
 bool SimpleGraph::is_valid_vertex(const Vertex &v) { return !v.deleted; }
