@@ -41,6 +41,7 @@ void OPTTSP::compute_tour() {
 }
 
 void OPTTSP::gen_perms(size_t perm_length) {
+	size_t i = perm_length;
 	if (perm_length == tour.size()) {
 		const double tour_length = tour_distance(tour.size(), metric);
 		if (tour_length < tsp_upperbound) {
@@ -52,10 +53,11 @@ void OPTTSP::gen_perms(size_t perm_length) {
 
   	if (!promising(perm_length)) return;
 
- 	for (size_t i = perm_length; i < tour.size(); ++i) {
+	while (i < tour.size()) {
     	swap(tour[perm_length], tour[i]);
     	gen_perms(perm_length + 1);
     	swap(tour[perm_length], tour[i]);
+		++i;
   	}
 }
 

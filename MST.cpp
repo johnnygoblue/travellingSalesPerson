@@ -87,12 +87,14 @@ void MST::print_mst(std::ostream &os, const std::vector<std::vector<double> > &m
 	const string space = " ";
 
 	os << weight << "\n";
-	for (const auto &p : mst) {
-		s += to_string(p.first - vertices.begin()) + space + to_string(p.second - vertices.begin()) + "\n";
+	auto p = mst.begin();
+	while (p != mst.end()) {
+		s += to_string(p->first - vertices.begin()) + space + to_string(p->second - vertices.begin()) + "\n";
 		if (s.length() > STRING_BUF_LIMIT) {
 			os << s;
 			s.clear();
 		}
+		++p;
 	}
 	os << s;
 }

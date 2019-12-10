@@ -93,12 +93,15 @@ void FASTTSP::print_tour(ostream &os) const {
 	string s;
 	const double distance = tour_distance(tour.size());
 	os << distance << endl;
-	for (const auto &it : tour) {
-		s += to_string(it - vertices.begin()) + space;
+
+	auto it = tour.begin();
+	while (it != tour.end()) {
+		s += to_string(*it - vertices.begin()) + space;
 		if (s.size() > STRING_BUF_LIMIT) {
 			os << s;
 			s.clear();
 		}
+		++it;
 	}
 	os << s;
 }
