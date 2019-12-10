@@ -85,8 +85,6 @@ vector<SimpleGraph::Vertex>::iterator OPTTSP::closest_mst_vertex
 	(vector<Vertex>::iterator &current, size_t perm_length) {
 
 	const size_t n = tour.size();
-	//assert(1 <= perm_length);
-	//assert(perm_length < n);
 
 	vector<Vertex>::iterator closest_vertex = tour[perm_length];
 	double min_dist = metric[unsigned(tour[perm_length] - vertices.begin())][unsigned(current - vertices.begin())];
