@@ -13,21 +13,17 @@
 
 class FASTTSP : virtual public SimpleGraph {
 public:
-
 	FASTTSP(std::istream &is, bool border);
 	bool initialize_insertion();
 	void arbitrary_insertion(const std::vector<std::vector<double> > &metric =
 		std::vector<std::vector<double> > () );
-
 	void print_tour(std::ostream &os) const;
 
 protected:
-
 	std::vector<std::vector<Vertex>::iterator> tour;
 
 	double tour_distance(size_t num_elements, const std::vector<std::vector<double> > &metric =
 		std::vector<std::vector<double> > () ) const;
-
 	std::vector<Vertex>::iterator closest_valid_vertex(std::vector<Vertex>::iterator &current);
 };
 

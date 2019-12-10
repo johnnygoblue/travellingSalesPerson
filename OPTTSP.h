@@ -14,25 +14,18 @@
 
 class OPTTSP : public MST, public FASTTSP {
 public:
-
 	OPTTSP(std::istream &is, bool border);
 
 	void compute_tour();
 
 private:
-
-	std::vector<std::vector<double> > metric;
-
+	std::vector<std::vector<double> > metric; // use metric graph for optimized TSP
 	std::vector<std::vector<Vertex>::iterator> opt_tour;
-
 	double tsp_upperbound;
 
 	void gen_perms(size_t perm_length);
-
 	bool promising(size_t perm_length);
-
 	std::vector<Vertex>::iterator closest_mst_vertex(std::vector<Vertex>::iterator &current, size_t perm_length);
-
 };
 
 #endif

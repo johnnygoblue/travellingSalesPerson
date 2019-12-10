@@ -12,22 +12,17 @@
 
 class MST : virtual public SimpleGraph {
 public:
-
 	MST(std::istream &is, bool border_in);
-
 	void gen_mst(const std::vector<std::vector<double> > &metric =
 	std::vector<std::vector<double> > () );
-
 	void print_mst(std::ostream &os, const std::vector<std::vector<double> > &metric =
 		std::vector<std::vector<double> > () ) const;
 
 protected:
-
 	std::vector<std::pair<std::vector<Vertex>::iterator, std::vector<Vertex>::iterator> > mst;
 
 	double mst_weight(const std::vector<std::vector<double> > &metric =
 		std::vector<std::vector<double> > () ) const;
-
 };
 
 #endif
