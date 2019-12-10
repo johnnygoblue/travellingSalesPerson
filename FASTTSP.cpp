@@ -7,17 +7,17 @@ using namespace std;
 
 FASTTSP::FASTTSP(istream &is, bool border) : SimpleGraph(is, border) { }
 
-void FASTTSP::arbitrary_insertion(const vector<vector<double> > &metric) {
-	tour.clear();
-	const size_t n = vertices.size();
-	tour.reserve(n + 1);
+bool FASTTSP::initialize_insertion() {
+	const size_t num_vertices = vertices.size();
 
-	if (vertices.size() <= 2) {
+	tour.clear();
+	tour.reserve(num_vertices + 1);
+
+	if (num_vertices <= 2) {
 		for (auto it = vertices.begin(); it != vertices.end(); ++it)
 			tour.push_back(it);
-		return;
+		return false;
 	}
-
 	reset_vertices();
 
 	/* start with 0, 1, and 2 before we go arbitrary */
@@ -28,8 +28,15 @@ void FASTTSP::arbitrary_insertion(const vector<vector<double> > &metric) {
 	vertices[0].deleted = true;
 	vertices[1].deleted = true;
 	vertices[2].deleted = true;
+	return true;
+}
 
-	while (tour.size() < n + 1) {
+void FASTTSP::arbitrary_insertion(const vector<vector<double> > &metric) {
+	if (!initialize_insertion()) {
+		return;
+	}
+	const size_t num_vertices = vertices.size();
+	while (tour.size() < num_vertices + 1) {
 		auto next_vertex = find_if(vertices.begin(), vertices.end(), is_valid_vertex);
 
 		auto min_pos = tour.end();
@@ -42,9 +49,8 @@ void FASTTSP::arbitrary_insertion(const vector<vector<double> > &metric) {
 				const size_t next_vert_ind = unsigned(next_vertex - vertices.begin());
 				const size_t tour_i_ind = unsigned(tour[i] - vertices.begin());
 				const size_t tour_i_plus_ind = unsigned(tour[i + 1] - vertices.begin());
-				candidate_dist = metric[next_vert_ind][tour_i_ind] +
-					metric[next_vert_ind][tour_i_plus_ind] -
-					metric[tour_i_ind][tour_i_plus_ind];
+				candidate_dist = metric[next_vert_ind][tour_i_ind] + metric[next_vert_ind][tour_i_plus_ind]
+					- metric[tour_i_ind][tour_i_plus_ind];
 			}
 			if (candidate_dist < min_tri_dist) {
 				min_pos = tour.begin() + unsigned(i);
@@ -76,12 +82,12 @@ vector<SimpleGraph::Vertex>::iterator FASTTSP::closest_valid_vertex
 }
 
 void FASTTSP::print_tour(ostream &os) const {
-	const double distance = tour_distance(tour.size());
-
-	os << distance << endl;
+	const string space = " ";
 	string s;
+	const double distance = tour_distance(tour.size());
+	os << distance << endl;
 	for (const auto &it : tour) {
-		s += to_string(it - vertices.begin()) + ' ';
+		s += to_string(it - vertices.begin()) + space;
 		if (s.size() > STRING_BUF_LIMIT) {
 			os << s;
 			s.clear();

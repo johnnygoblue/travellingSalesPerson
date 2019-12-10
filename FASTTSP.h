@@ -15,7 +15,7 @@ class FASTTSP : virtual public SimpleGraph {
 public:
 
 	FASTTSP(std::istream &is, bool border);
-
+	bool initialize_insertion();
 	void arbitrary_insertion(const std::vector<std::vector<double> > &metric =
 		std::vector<std::vector<double> > () );
 
