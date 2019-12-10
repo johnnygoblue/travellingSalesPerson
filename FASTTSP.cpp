@@ -1,7 +1,6 @@
 // Project Identifier: 5949F553E20B650AB0FB2266D3C0822B13D248B0
 
 #include "FASTTSP.h"
-//#include <cassert>
 #include <algorithm>
 #include <numeric>
 using namespace std;
@@ -10,7 +9,6 @@ FASTTSP::FASTTSP(istream &is, bool border) : SimpleGraph(is, border) { }
 
 void FASTTSP::arbitrary_insertion(const vector<vector<double> > &metric) {
 	tour.clear();
-	//assert(!vertices.empty());
 	const size_t n = vertices.size();
 	tour.reserve(n + 1);
 

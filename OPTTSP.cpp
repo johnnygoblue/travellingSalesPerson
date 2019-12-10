@@ -2,7 +2,6 @@
 
 #include "OPTTSP.h"
 
-//#include <cassert>
 #include <algorithm>
 using namespace std;
 

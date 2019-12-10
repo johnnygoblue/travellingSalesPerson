@@ -3,7 +3,6 @@
 #include <algorithm>
 #include <limits>
 #include <cmath>
-//#include <cassert>
 #include <list>
 
 #include "SimpleGraph.h"
@@ -61,5 +60,7 @@ double SimpleGraph::dist(const Vertex &v_1, const Vertex &v_2) const {
 }
 
 void SimpleGraph::reset_vertices() {
-	for (auto &v : vertices) v.deleted = false;
+	for (auto &v : vertices) {
+		v.deleted = false;
+	}
 }
