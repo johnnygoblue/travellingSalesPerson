@@ -2,6 +2,9 @@ make
 **.swp
 .DS_Store
 poke
+sample-e-out
+sample-c-out
+sample-d-out
 **.a
 **.d
 **.o
