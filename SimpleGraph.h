@@ -1,4 +1,11 @@
 // Project Identifier: 5949F553E20B650AB0FB2266D3C0822B13D248B0
+
+/*
+ * For all parts of the project. The SimpleGraph class provides some basic IO, border and
+ * Vertex struct that can be inherited upon by all part A, B, and C for other uses.
+ *
+ */
+
 #ifndef SIMPLEGRAPH_H
 #define SIMPLEGRAPH_H
 

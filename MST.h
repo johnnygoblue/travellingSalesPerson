@@ -1,5 +1,10 @@
 // Project Identifier: 5949F553E20B650AB0FB2266D3C0822B13D248B0
 
+/*
+ * For part A of the project. The MST class computes the MST given a subgraph
+ *
+ */
+
 #ifndef MST_H
 #define MST_H
 
