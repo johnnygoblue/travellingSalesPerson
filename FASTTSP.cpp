@@ -20,6 +20,7 @@ void FASTTSP::arbitrary_insertion(const vector<vector<double> > &metric) {
 
 	reset_vertices();
 
+	/* start with 0, 1, and 2 before we go arbitrary */
 	tour.push_back(vertices.begin());
 	tour.push_back(vertices.begin() + 1);
 	tour.push_back(vertices.begin() + 2);
@@ -64,7 +65,6 @@ vector<SimpleGraph::Vertex>::iterator FASTTSP::closest_valid_vertex
 
 	for (auto it = min_vertex + 1; it != vertices.end(); ++it) {
 		if (!it->deleted && it != current) {
-			// Set to min_vertex if it's closer.
 			const double candidate_dist = dist(*it, *current);
 			if (candidate_dist < min_dist) {
 				min_vertex = it;
